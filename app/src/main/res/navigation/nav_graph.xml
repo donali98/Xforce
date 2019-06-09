@@ -7,14 +7,11 @@
     <fragment android:id="@+id/destination_home" android:name="com.donali.xforce.fragments.MovieListFragment"
               android:label="fragment_movie_list" tools:layout="@layout/fragment_movie_list">
         <action
-            android:id="@+id/action_movieListFragment_to_movieInfoFragment"
+            android:id="@+id/next_action"
             app:destination="@id/destination_info" />
     </fragment>
     <fragment android:id="@+id/destination_info" android:name="com.donali.xforce.fragments.MovieInfoFragment"
               android:label="fragment_movie_info" tools:layout="@layout/fragment_movie_info">
-        <argument
-            android:name="imdbId"
-            app:argType="string"
-            android:defaultValue="1" />
+        <argument android:name="imdbId" app:argType="string" android:defaultValue="1"/>
     </fragment>
 </navigation>

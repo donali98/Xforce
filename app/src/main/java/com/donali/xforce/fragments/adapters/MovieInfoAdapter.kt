@@ -1,5 +1,6 @@
 package com.donali.xforce.fragments.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +11,10 @@ import com.donali.xforce.R
 import com.donali.xforce.database.entities.MovieInfo
 import com.squareup.picasso.Picasso
 
-class MovieInfoAdapter (val clickListener:()->Unit):RecyclerView.Adapter<MovieInfoAdapter.ViewHolder>(){
+class MovieInfoAdapter (val clickListener:(View,String)->Unit):RecyclerView.Adapter<MovieInfoAdapter.ViewHolder>(){
 
     var movies = listOf<MovieInfo>()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieInfoAdapter.ViewHolder {
         val item = LayoutInflater.from(parent.context).inflate(R.layout.item_layout,parent,false)
@@ -38,7 +40,7 @@ class MovieInfoAdapter (val clickListener:()->Unit):RecyclerView.Adapter<MovieIn
                 .into(itemListPoster)
 
             this.setOnClickListener {
-                clickListener
+                clickListener(it,movieInfo.imdbID)
             }
         }
     }

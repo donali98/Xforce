@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 
 import com.donali.xforce.R
@@ -25,6 +26,12 @@ class MovieListFragment : Fragment() {
     lateinit var activityHelper:ActivityHelper
     lateinit var movieInfoViewModel: MovieInfoViewModel
 
+    val clickListener = fun(view:View,imdbID:String){
+        val nextAction = MovieListFragmentDirections.nextAction()
+        nextAction.imdbId = imdbID
+        view.findNavController().navigate(nextAction)
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activityHelper = context as ActivityHelper
@@ -37,9 +44,7 @@ class MovieListFragment : Fragment() {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_movie_list, container, false)
         movieListRecyclerView = view.findViewById(R.id.rv_list_movies)
-        movieInfoAdapter = MovieInfoAdapter {
-            Log.d("CUSTOM","clicked!")
-        }
+        movieInfoAdapter = MovieInfoAdapter(clickListener)
         movieListRecyclerView.apply {
             setHasFixedSize(true)
             adapter = movieInfoAdapter

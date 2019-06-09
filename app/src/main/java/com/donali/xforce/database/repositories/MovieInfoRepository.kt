@@ -1,7 +1,11 @@
 package com.donali.xforce.database.repositories
 
 import android.util.Log
+import androidx.annotation.WorkerThread
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.donali.xforce.database.daos.MovieInfoDao
+import com.donali.xforce.database.entities.MovieInfo
 import com.donali.xforce.database.services.retrofit.MovieService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -9,16 +13,13 @@ import kotlinx.coroutines.launch
 
 class MovieInfoRepository(private val movieInfoDao: MovieInfoDao) {
 
-    fun retreiveMovieInfoList() = GlobalScope.launch (Dispatchers.IO){
-        val response = MovieService.getMovieService().retreiveAllMovies("The Avenger","movie",1,MovieService.API_KEY).await()
-        if(response.isSuccessful){
+    fun getAllMovieInfo() = movieInfoDao.getAllMovieInfo()
+    fun getAllMovieInfoNoLiveData() = movieInfoDao.getAllMovieInfoNoLiveData()
 
-            with(response){
-                this.body()?.results?.forEach {
-                    Log.d("CUSTOM",it.Title)
-                }
-            }
-        }
-        else Log.d("CUSTOM","shit")
-    }
+    @WorkerThread
+    suspend fun insertMovieInfo(movieInfo: MovieInfo) = movieInfoDao.insertOne(movieInfo)
+
+    @WorkerThread
+    suspend fun deleteAllMovieInfo() = movieInfoDao.deleteAll()
+
 }

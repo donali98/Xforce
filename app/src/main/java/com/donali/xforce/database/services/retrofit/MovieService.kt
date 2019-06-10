@@ -1,5 +1,6 @@
 package com.donali.xforce.database.services.retrofit
 
+import com.donali.xforce.database.entities.Movie
 import com.donali.xforce.database.entities.retrofit.MovieResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -19,6 +20,12 @@ interface MovieService {
         @Query("page")page:Int,
         @Query("apikey")apiKey:String
     ):Deferred<Response<MovieResponse>>
+
+    @GET("/")
+    fun retreiveMovieById(
+            @Query("i") id: String,
+            @Query("apikey") apiKey: String
+    ): Deferred<Response<Movie>>
 
     companion object{
         const val API_KEY = "57eae034"

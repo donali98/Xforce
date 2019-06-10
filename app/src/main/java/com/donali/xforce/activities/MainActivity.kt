@@ -2,6 +2,7 @@ package com.donali.xforce.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.donali.xforce.helpers.ActivityHelper
 class MainActivity : AppCompatActivity(),ActivityHelper {
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,4 +25,7 @@ class MainActivity : AppCompatActivity(),ActivityHelper {
     }
 
     override fun getLayoutManager(): RecyclerView.LayoutManager  = LinearLayoutManager(this)
+
+
+    override fun showEmptySearchToast()  = Toast.makeText(this,"No search param added!",Toast.LENGTH_SHORT).show()
 }

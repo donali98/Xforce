@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.donali.xforce.database.entities.Movie
 import com.donali.xforce.database.entities.MovieInfo
 
 @Dao
@@ -12,6 +13,9 @@ interface MovieInfoDao {
 
     @Query("select * from movie_info")
     fun getAllMovieInfo():LiveData<List<MovieInfo>>
+
+    @Query("select * from movie_info where title like :title")
+    fun findMovieByTitle(title:String):LiveData<List<MovieInfo>>
 
     @Query("select * from movie_info")
     fun getAllMovieInfoNoLiveData():List<MovieInfo>

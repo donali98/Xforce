@@ -5,15 +5,18 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.donali.xforce.database.daos.MovieDao
 import com.donali.xforce.database.daos.MovieInfoDao
+import com.donali.xforce.database.entities.Movie
 import com.donali.xforce.database.entities.MovieInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [MovieInfo::class],version = 2,exportSchema = false)
+@Database(entities = [MovieInfo::class, Movie::class],version = 4,exportSchema = false)
 abstract class RoomDB :RoomDatabase(){
     abstract fun movieInfoDao():MovieInfoDao
+    abstract fun movieDao():MovieDao
     companion object {
         @Volatile
         private var INSTANCE: RoomDB? = null
